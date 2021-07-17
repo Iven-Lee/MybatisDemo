@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Iven.dao.StudentDao">
+    <!--
+       select:表示查询操作。
+       id: 你要执行的sql语法的唯一标识， mybatis会使用这个id的值来找到要执行的sql语句
+           可以自定义，但是要求你使用接口中的方法名称，即StudentDao.java定义的操作名
+
+       resultType:表示结果类型的， 是sql语句执行后得到ResultSet,遍历这个ResultSet得到java对象的类型。
+          值写的类型的全限定名称
+
+    CREATE TABLE t_users(
+
+        userId int  primary key auto_increment, #用户编号
+        userName varchar(50),    #用户名称
+        pword varchar(50),    #用户密码
+        sex      char(1),        #用户性别 '男' 或则 '女'
+        email    varchar(50)     #用户邮箱
+      )
+    -->
+    <select id="selectStudents" resultType="com.Iven.sqlName.SqlName" >
+        select userId,userName,pword,sex,email from t_users order by userId
+    </select>
+
+
+
+
+
+
+
+
+    <!--
+        parameterType ： dao接口中方法参数的数据类型。
+        parameterType它的值是java的数据类型全限定名称或者是mybatis定义的别名
+        例如：parameterType="java.lang.Integer"
+        parameterType="int"
+
+        注意：parameterType不是强制的，mybatis通过反射机制能够发现接口参数的数类型。
+        所以可以没有。 一般我们也不写。
+        使用#{}之后， mybatis执行sql是使用的jdbc中的PreparedStatement对象
+
+        <select id="selectStudents" parameterType="int" resultType="com.Iven.sqlName.SqlName" >
+        相当于<select id="selectStudents" resultType="com.Iven.sqlName.SqlName" >
+    -->
+    <!--传入一个或多个简单类型的参数-->
+    <select id="selectMultiParam" resultType="com.Iven.sqlName.SqlName" >
+        select userId,userName,pword,sex,email from t_users where
+        userName=#{myname} or pword=#{mypass}
+    </select>
+
+
+
+
+
+
+
+
+    <!--多个参数， 使用java对象的属性值，作为参数实际值
+        使用对象语法： #{属性名,javaType=类型名称,jdbcType=数据类型} 很少用。
+                    javaType:指java中的属性数据类型。
+                    jdbcType:在数据库中的数据类型。
+                    例如： #{paramName,javaType=java.lang.String,jdbcType=VARCHAR}
+
+        我们使用的简化方式： #{属性名}  ，javaType, jdbcType的值mybatis反射能获取。不用提供
+
+    -->
+    <!--使用java对象(QueryParam对象)作为接口中方法的参数-->
+    <select id="selectMultiObject" resultType="com.Iven.sqlName.SqlName" >
+        select userId,userName,pword,sex,email from t_users where
+        userName=#{paramName} or pword=#{paramPass}
+    </select>
+
+
+
+
+
+
+
+
+    <!--定义动态sql片段-->
+    <!--定义sql片段-->
+    <sql id="studentSql">
+        select userId,userName,pword,sex,email from t_users
+    </sql>
+
+    <sql id="studentSqlOne">
+         userId,userName,pword,sex,email
+    </sql>
+    <!--
+        *  mybatis提供标签：
+        *  1、<if>:判断条件，即<if:test="使用参数java对象的属性值作为判断条件，语法 属性=XXX值">
+        *  2、<where>:用来包含多个<if>，即： <where> <if> <if>...</where>
+        *  3、<foreach>:对数组与集合遍历，foreach使用： List<Integer>
+        *   //where使用
+        *  <include refid="sql片段的ID">
+    -->
+    <select id="selectStudentWhere" resultType="com.Iven.sqlName.SqlName">
+        <include refid="studentSql" />
+        <where>
+            <if test="paramName !=null and paramName !='' ">
+                userName=#{paramName}
+            </if>
+            <if test="paramPass !=null and paramPass !='' ">
+                or pword=#{paramPass}
+            </if>
+        </where>
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--插入操作-->
+    <insert id="insertStudent">
+        insert into t_users values(#{userId},#{userName},#{pword},#{sex},#{email})
+    </insert>
+</mapper>
+        <!--
+          sql映射文件（sql mapper）： 写sql语句的， mybatis会执行这些sql
+          1.指定约束文件
+             <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+            mybatis-3-mapper.dtd是约束文件的名称， 扩展名是dtd的。
+          2.约束文件作用：  限制，检查在当前文件中出现的标签，属性必须符合mybatis的要求。
+
+          3.mapper 是当前文件的根标签，必须的。
+            namespace：叫做命名空间，唯一值的， 可以是自定义的字符串。
+                       要求你使用dao接口的全限定名称。
+
+          4.在当前文件中，可以使用特定的标签，表示数据库的特定操作。
+           <select>:表示执行查询，select语句
+           <update>:表示更新数据库的操作， 就是在<update>标签中 写的是update sql语句
+           <insert>:表示插入， 放的是insert语句
+           <delete>:表示删除， 执行的delete语句
+
+           #：占位符，告诉 mybatis 使用实际的参数值代替。并使用 PrepareStatement 对象执行 sql 语句, #{…}代替
+                sql 语句的“?”。这样做更安全，更迅速，通常也是首选做法，
+                mapper 文件
+                <select id="selectById" resultType="com.bjpowernode.domain.Student">
+                 select id,name,email,age from student where id=#{studentId}
+                </select>
+                转为 MyBatis 的执行是：
+                String sql=” select id,name,email,age from student where id=?”;
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1,1005);
+                解释：
+                where id=? 就是 where id=#{studentId}
+                ps.setInt(1,1005) , 1005 会替换掉 #{studentId}
+          $ 字符串替换，告诉 mybatis 使用$包含的“字符串”替换所在位置。使用 Statement 把 sql 语句和${}的
+                内容连接起来。主要用在替换表名，列名，不同列排序等操作。
+        -->

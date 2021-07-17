@@ -1,0 +1,75 @@
+JDBC的缺陷：
+1. 代码比较多，开发效率低
+2. 需要关注 Connection ,Statement, ResultSet 对象创建和销毁
+3. 对 ResultSet 查询的结果，需要自己封装为 List
+4. 重复的代码比较多些
+5. 业务代码和数据库的操作混在一起
+
+MyBatis 解决的主要问题：
+减轻使用 JDBC 的复杂性，不用编写重复的创建 Connetion , Statement ; 不用编写关闭资源代码。
+直接使用 java 对象，表示结果数据。让开发者专注 SQL 的处理。 其他分心的工作由 MyBatis 代劳。
+MyBatis 可以完成：
+1. 注册数
+4.关闭资源据库的驱动，例如 Class.forName(“com.mysql.jdbc.Driver”))
+      2. 创建 JDBC 中必须使用的 Connection ， Statement， ResultSet 对象
+      3. 从 xml 中获取 sql，并执行 sql 语句，把 ResultSet 结果转换 java 对象
+      List<Student> list = new ArrayLsit<>();
+      ResultSet rs = state.executeQuery(“select * from student”);
+      while(rs.next){
+       Student student = new Student();
+       student.setName(rs.getString(“name”));
+       student.setAge(rs.getInt(“age”));
+       list.add(student);
+      }
+ResultSet.close() , Statement.close() , Conenection.close()
+
+
+
+
+Mybatis的实现步骤：
+1.创建用户信息表 t_users.frm
+
+      CREATE TABLE t_users(
+
+        userId int  primary key auto_increment, #用户编号
+        userName varchar(50),    #用户名称
+        pword varchar(50),    #用户密码
+        sex      char(1),        #用户性别 '男' 或则 '女'
+        email    varchar(50)     #用户邮箱
+      )
+2.加入maven依赖：
+        -----mybatis坐标、mysql驱动坐标（中央调度库：https://mvnrepository.com/）
+        -----在<bulid>标签加入扫描.properties、.xml 文件的配置
+3.创建实体类，SqlName---保存表中的数据(定义userId、userName、pword、sex、email)
+4.创建持久层（数据访问层）的dao接口，StudentDao类中定义操作数据库的方法
+5.创建一个mybatis使用的配置文件：SQL映射文件（XML）---一般一张表对应一个SQL映射文件
+        ----在dao接口所在目录中
+        ----文件名称与接口保持一致
+6.创建mybatis的主配置文件（在resources目录下：mybatis.xml）：
+        ----主配置文件提供数据库的连接信息
+        ----SQL映射文件的位置信息
+7.创建使用mybatis类（MyAPP.java）访问数据库
+
+
+
+
+本项目的知识点：
+1、项目构建体系
+2、mybatis的三种控制方式
+3、向SQL语句传入参数：@Param("自定义参数名称")
+------传入一个或多个简单类型的参数
+------传入引用类型的参数
+4、使用动态sql ，java对象作为参数传入
+       *  mybatis提供标签：
+       *  -----<if>:判断条件，即<if:test="使用参数java对象的属性值作为判断条件，语法 属性=XXX值">
+       *  -----<where>:用来包含多个<if>，即： <where> <if> <if>...</where>
+       *  -----<foreach>:对数组与集合遍历，foreach使用： List<Integer>
+    SQL代码片段的复用（xml文件中）
+        *  1、先定义<sql id = "自定义名称唯一">sql语句等</sql>
+        *  2、再使用<include refid = "id值"></>
+5、mybatis的主配置文件中的数据库属性配置方式：
+------直接定义
+------指定properties文件的位置，从类路径根开始找文件（jdbc.propertis）
+6、关于sql映射文件（xml）位置的定义（需要在pom.xml文件中加入<resources>扫描.properties、.xml 文件）
+------第一种方式：指定多个mapper文件完整类路径
+------第二种方式：使用mapper文件所在包名

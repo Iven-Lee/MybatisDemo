@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+
+    <!--指定properties文件的位置，从类路径根开始找文件-->
+    <properties resource="jdbc.properties" />
+
+
+
+
+    <!--settings：控制mybatis全局行为-->
+    <settings>
+        <!--设置mybatis输出日志-->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
+    <!--环境配置： 数据库的连接信息
+        default:必须和某个environment的id值一样。
+        告诉mybatis使用哪个数据库的连接信息。也就是访问哪个数据库
+    -->
+    <environments default="mydev">
+        <!-- environment : 一个数据库信息的配置， 环境
+             id:一个唯一值，自定义，表示环境的名称。
+             default使用对应的数据库ID，例如mydev或online（用于切换数据库）
+        -->
+        <environment id="mydev">
+            <!--
+              transactionManager:mybatis提交事务，回顾事务的方式
+                 type: 事务的处理的类型
+                     1）JDBC : 表示mybatis底层是调用JDBC中的Connection对象的，commit， rollback
+                     2）MANAGED : 把mybatis的事务处理委托给其它的容器（一个服务器软件，一个框架（spring））
+            -->
+            <transactionManager type="JDBC"/>
+            <!--
+               dataSource:表示数据源，java体系中，规定实现了javax.sql.DataSource接口的都是数据源。
+                          数据源表示Connection对象的。
+
+               type:指定数据源的类型
+                  1）POOLED: 使用连接池， mybatis会创建PooledDataSource类
+                  2）UPOOLED: 不使用连接池， 在每次执行sql语句，先创建连接，执行sql，在关闭连接
+                              mybatis会创建一个UnPooledDataSource，管理Connection对象的使用
+                  3）JNDI：java命名和目录服务（windows注册表）
+            -->
+            <dataSource type="POOLED">
+                <!--
+                   driver, user, username, password 是固定的，不能自定义。
+                -->
+                <!--数据库的驱动类名-->
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <!--连接数据库的url字符串-->
+                <property name="url" value="jdbc:mysql://localhost:3306/student"/>
+                <!--访问数据库的用户名-->
+                <property name="username" value="root"/>
+                <!--密码-->
+                    <property name="password" value="Z1X2C3"/>
+            </dataSource>
+        </environment>
+
+
+
+
+
+        <!--表示线上的数据库，是项目真实使用的库-->
+        <!--使用属性配置文件-->
+        <environment id="online">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <!--数据库的驱动类名-->
+                <property name="driver" value="${jdbc.driver}"/>
+                <!--连接数据库的url字符串-->
+                <property name="url" value="${jdbc.url}"/>
+                <!--访问数据库的用户名-->
+                <property name="username" value="${jdbc.user}"/>
+                <!--密码-->
+                <property name="password" value="${jdbc.passwd}"/>
+            </dataSource>
+        </environment>
+
+
+
+    </environments>
+
+
+
+
+
+    <!-- sql mapper(sql映射文件)的位置-->
+    <mappers>
+        <!--第一种方式：指定多个mapper文件-->
+        <!--<mapper resource="com/Iven/dao/StudentDao.xml"/>
+        <mapper resource="com/Iven/dao/OrderDao.xml" />-->
+
+        <!--第二种方式： 使用包名
+            name: xml文件（mapper文件）所在的包名, 这个包中所有xml文件一次都能加载给mybatis
+            使用package的要求：
+             1. mapper文件名称需要和接口名称一样， 区分大小写的一样
+             2. mapper文件和dao接口需要在同一目录
+        -->
+        <package name="com.Iven.dao"/>
+        <!-- <package name="com.Iven.dao2"/>
+         <package name="com.Iven.dao3"/>-->
+    </mappers>
+</configuration>
+<!--
+   mybatis的主配置文件： 主要定义了数据库的配置信息， sql映射文件的位置
+
+   1. 约束文件
+   <!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+    mybatis-3-config.dtd：约束文件的名称
+
+  2. configuration 根标签。
+-->
