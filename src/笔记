@@ -73,3 +73,6 @@ Mybatis的实现步骤：
 6、关于sql映射文件（xml）位置的定义（需要在pom.xml文件中加入<resources>扫描.properties、.xml 文件）
 ------第一种方式：指定多个mapper文件完整类路径
 ------第二种方式：使用mapper文件所在包名
+
+
+
