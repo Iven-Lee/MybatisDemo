@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5dad3afa-4901-43c6-b321-beb39ee3182f" name="Changes" comment="第三">
+    <list default="true" id="5dad3afa-4901-43c6-b321-beb39ee3182f" name="Changes" comment="笔记">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Iven/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Iven/test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +47,13 @@
       <option name="presentableId" value="Default" />
       <updated>1696755932876</updated>
       <workItem from="1696755934260" duration="703000" />
+      <workItem from="1696955209034" duration="74000" />
+      <workItem from="1697124301993" duration="5843000" />
+      <workItem from="1697380665877" duration="6325000" />
+      <workItem from="1697984609197" duration="381000" />
+      <workItem from="1697985004589" duration="655000" />
+      <workItem from="1726733943583" duration="590000" />
+      <workItem from="1726734547591" duration="637000" />
     </task>
     <task id="LOCAL-00001" summary="笔记">
       <created>1696756161672</created>
@@ -84,7 +90,28 @@
       <option name="project" value="LOCAL" />
       <updated>1696758137650</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="笔记">
+      <created>1696761862560</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1696761862560</updated>
+    </task>
+    <task id="LOCAL-00007" summary="变化">
+      <created>1726734029526</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1726734029526</updated>
+    </task>
+    <task id="LOCAL-00008" summary="改变">
+      <created>1726735178923</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1726735178923</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -103,9 +130,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="笔记" />
     <MESSAGE value="第二" />
     <MESSAGE value="第三" />
-    <option name="LAST_COMMIT_MESSAGE" value="第三" />
+    <MESSAGE value="笔记" />
+    <MESSAGE value="变化" />
+    <MESSAGE value="改变" />
+    <option name="LAST_COMMIT_MESSAGE" value="改变" />
   </component>
 </project>
