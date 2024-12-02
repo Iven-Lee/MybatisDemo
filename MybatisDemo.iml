@@ -16,4 +16,7 @@
     <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.5.1" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.9" level="project" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="e43f3789-b6d0-401a-addd-b7359bf8690c" />
+  </component>
 </module>
