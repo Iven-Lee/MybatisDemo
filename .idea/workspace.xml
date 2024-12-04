@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5dad3afa-4901-43c6-b321-beb39ee3182f" name="Changes" comment="笔记">
+    <list default="true" id="5dad3afa-4901-43c6-b321-beb39ee3182f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MybatisDemo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MybatisDemo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Iven/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Iven/test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +17,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="prod" />
+        <entry key="$PROJECT_DIR$" value="test" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -54,6 +56,7 @@
       <workItem from="1697985004589" duration="655000" />
       <workItem from="1726733943583" duration="590000" />
       <workItem from="1726734547591" duration="637000" />
+      <workItem from="1733292249306" duration="2080000" />
     </task>
     <task id="LOCAL-00001" summary="笔记">
       <created>1696756161672</created>
